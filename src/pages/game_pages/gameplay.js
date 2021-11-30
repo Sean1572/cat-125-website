@@ -10,42 +10,69 @@ class Gameplay extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            wavesurfer: null
+            wavesurfer: null,
+            spectrogram: false
         }
     }
     componentDidMount() {
+        const {spectrogram} = this.state
         console.log("start render")
         //start a timer
-        var wavesurfer = WaveSurfer.create({
-            container: '#waveform',
-            scrollParent: true,
-            fillParent : true,
-            plugins: [
-                RegionPlugin.create({ dragSelection: {
-                    slop: 5
-                }}),
-                SpectrogramPlugin.create({
-                    wavesurfer: wavesurfer,
-                    container: '#spectrogram',
-                    scrollParent: true,
+        if (spectrogram) {
+            var wavesurfer = WaveSurfer.create({
+                container: '#waveform',
+                scrollParent: true,
+                fillParent : true,
+                height: 256,
+                barHeight: 0,
+                barGap: 100000000,
+                waveColor: "rgba(0,0,0,0)",
+                progressColor:"rgba(0,0,0,0)",
+                plugins: [
+                    RegionPlugin.create({ dragSelection: {
+                        slop: 5
+                    }}),
+                    SpectrogramPlugin.create({
+                        wavesurfer: wavesurfer,
+                        container: '#spectrogram',
+                        scrollParent: true,
 
-                })
-            ]
+                    })
+                ]
 
-        });
-        wavesurfer.on("error", error => console.log(error))
+            });
+            wavesurfer.on("error", error => console.log(error))
+           
+            console.log("async creation started")
+            wavesurfer.once('ready', () => {
+                //fix spectrogram sync issues
+                console.log("ready success 2")
+                const table = document.getElementById('forecast-table')
+                const canvas = document.getElementsByTagName("spectrogram")[0].firstElementChild               
+                canvas.style.position = "relative"
+                console.log("ready success 2")
+                console.log(document.getElementById("waveform"))
+                console.log("ready success 2")
+                const wave_canvas = document.getElementById("waveform").firstElementChild
+                wave_canvas.style.display = "block"
+                console.log(document.getElementById("waveform"))
+            });
+        }
+        else {
+            var wavesurfer = WaveSurfer.create({
+                container: '#waveform',
+                scrollParent: true,
+                fillParent : true,
+                height: 256,
+                plugins: [
+                    RegionPlugin.create({ dragSelection: {
+                        slop: 5
+                    }}),
+                ]
+
+            });
+        }
         wavesurfer.load(soundfile);
-        console.log("async creation started")
-        wavesurfer.once('ready', () => {
-            //fix spectrogram sync issues
-            console.log("ready success 2")
-            const table = document.getElementById('forecast-table')
-            const canvas = document.getElementsByTagName("spectrogram")[0].firstElementChild
-            console.log(canvas)
-            canvas.style.position = "relative"
-            console.log("ready done")
-            
-        });
         wavesurfer.un('play', () => {
             console.log("play success")
            
@@ -76,9 +103,9 @@ class Gameplay extends React.Component {
                     
                     <script src="https://unpkg.com/wavesurfer.js"></script>
                     <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
-                    
-                    <div id="waveform" className="waveform"></div>
                     <div id="spectrogram" className="spectrogram_div"></div>
+                    <div id="waveform" className="waveform"></div>
+                    
                     <Button 
                         onclick={() => wavesurfer.play()}
                         text={"Play"}
