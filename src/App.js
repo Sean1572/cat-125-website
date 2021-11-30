@@ -24,6 +24,8 @@ import './App.css';
 function App() {
   return (
     <div className="App">
+      <script src="https://unpkg.com/wavesurfer.js"></script>
+                    <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
       {/* Path for game */}
       <Router>
         <Routes >

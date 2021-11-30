@@ -13,6 +13,14 @@
   z-index: 100;
 }
 
+.spectrogram_div {
+  width: 300px;
+  height: max-content;
+  z-index: 100;
+  align-items: center;
+  overflow: visible;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
