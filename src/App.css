@@ -2,6 +2,17 @@
   text-align: center;
 }
 
+.App-Button {
+  width: 100px;
+  height: max-content;
+}
+
+.waveform {
+  width: 300px;
+  height: max-content;
+  z-index: 100;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

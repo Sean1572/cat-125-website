@@ -28,10 +28,11 @@ function App() {
       <Router>
         <Routes >
           <Route path="/cat-125-website" element={<Landing/>}/>
+          <Route path="/localhost" element={<Landing/>}/>
           <Route path="/" element={<Landing/>}/>
           <Route path="/annotate" element={<Gameplay/>}/>
           <Route path="/annotate_start" element={<GameStart/>}/>
-          <Route path="/annotate_LeaderBoard" element={<GameStart/>}/>
+          <Route path="/annotate_LeaderBoard" element={<Leaderboard/>}/>
         </Routes >
       </Router>
     </div>
