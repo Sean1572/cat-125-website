@@ -4,7 +4,7 @@ import {
   Leaderboard 
 }from './pages/game_pages/game_index'
 import {
-  Landing
+  Landing, Test
 } from './pages/index.js'
 import logo from './logo.svg';
 import { 
@@ -25,7 +25,7 @@ function App() {
   return (
     <div className="App">
       <script src="https://unpkg.com/wavesurfer.js"></script>
-                    <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
+      <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
       {/* Path for game */}
       <Router>
         <Routes >
@@ -35,6 +35,7 @@ function App() {
           <Route path="/annotate" element={<Gameplay/>}/>
           <Route path="/annotate_start" element={<GameStart/>}/>
           <Route path="/annotate_LeaderBoard" element={<Leaderboard/>}/>
+          <Route path="/test" element={<Test/>}/>
         </Routes >
       </Router>
     </div>

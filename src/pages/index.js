@@ -1,3 +1,3 @@
 import Landing from "./Landing";
-
-export {Landing}
+import Test from "./test";
+export {Landing, Test}
