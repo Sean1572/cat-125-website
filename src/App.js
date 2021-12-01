@@ -1,10 +1,10 @@
 import {
   Gameplay,
   GameStart,
-  Leaderboard 
+  Leaderboard , Scoring
 }from './pages/game_pages/game_index'
 import {
-  Landing, Test
+  Landing
 } from './pages/index.js'
 import logo from './logo.svg';
 import { 
@@ -35,7 +35,7 @@ function App() {
           <Route path="/annotate" element={<Gameplay/>}/>
           <Route path="/annotate_start" element={<GameStart/>}/>
           <Route path="/annotate_LeaderBoard" element={<Leaderboard/>}/>
-          <Route path="/test" element={<Test/>}/>
+          <Route path="/annotate_scoring" element={<Scoring/>}/>
         </Routes >
       </Router>
     </div>
