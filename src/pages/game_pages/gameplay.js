@@ -43,7 +43,7 @@ class Gameplay extends React.Component {
             wavesurfer: null,
             spectrogram: visual == 1,
             label,
-            curr: 1,
+            curr: 0,
             curr_labels: null,
             old_labels:  {
 
@@ -57,6 +57,7 @@ class Gameplay extends React.Component {
         //start a timer
 
         if (spectrogram && label != 1) {
+            console.log("regions enabled")
             var wavesurfer = WaveSurfer.create({
                 container: '#waveform',
                 scrollParent: true,
@@ -155,8 +156,9 @@ class Gameplay extends React.Component {
         }
 
         let files = getFiles(1);
+
         //TODO ADD IMAGES INTO LOOP
-        wavesurfer.load(files[0]);
+        wavesurfer.load(files[0][0]);
         wavesurfer.un('play', () => {
             console.log("play success")
            
@@ -184,12 +186,12 @@ class Gameplay extends React.Component {
         const time = end_time - start
         let {old_labels} = this.state;
         if (curr_labels != null) {
-            old_labels[files[curr]] = { //
+            old_labels[files[curr][0]] = { //
                 "data": curr_labels,
                 time: time
             }
         } else {
-            old_labels[files[curr]] = {
+            old_labels[files[curr][0]] = {
                 time: time
             }
             const annotations = wavesurfer.regions.list;
@@ -197,7 +199,7 @@ class Gameplay extends React.Component {
             for (let region in annotations) {
                 region = annotations[region]
                 console.log(wavesurfer.regions.list)
-                old_labels[files[curr]]["data"] = {
+                old_labels[files[curr][0]]["data"] = {
                     start: region.start,
                     end: region.end
                 }
@@ -223,7 +225,7 @@ class Gameplay extends React.Component {
         }
 
         this.saveLabels(end);
-        wavesurfer.load(files[curr]);
+        wavesurfer.load(files[curr][0]);
         const next_item = curr + 1;
         const start = Date.now();
         console.log(next_item)
@@ -239,7 +241,7 @@ class Gameplay extends React.Component {
                     
                     <Scoring old_labels={old_labels}/>
                     </div> :
-                    <div>
+                    <div className="App-header">
                         <p>
                             Gameplay is here
                         </p>
@@ -248,9 +250,9 @@ class Gameplay extends React.Component {
                         <script src="https://unpkg.com/wavesurfer.js"></script>
                         <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
                         
-                        
-                        <div id="spectrogram" className="spectrogram_div"></div>
                         <div id="waveform" className="waveform"></div>
+                        <div id="spectrogram" className="spectrogram_div"></div>
+                        
                         
                         <Button 
                             onclick={() => wavesurfer.play()}
