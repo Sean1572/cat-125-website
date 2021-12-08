@@ -18,6 +18,11 @@
       "sizes": "512x512"
     }
   ],
+  "images": [
+      {"src": "1800.jpg",
+      "type": "image/png",
+      "sizes": "500X500"}
+  ],
   "start_url": ".",
   "display": "standalone",
   "theme_color": "#000000",
