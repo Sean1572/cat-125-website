@@ -155,8 +155,7 @@ class Gameplay extends React.Component {
 
         let files = getFiles(1);
 
-        //TODO ADD IMAGES INTO LOOP
-        console.log(files)
+
         if (files[0][1]) {
             wavesurfer.load(files[0][0]);
         } else {
@@ -188,7 +187,6 @@ class Gameplay extends React.Component {
     }
 
     saveLabels(end_time) {
-        console.log("savedLabels")
         let {curr, files, start, curr_labels, wavesurfer, rect_data} = this.state;
         if (curr > 0) {
             curr--;
@@ -206,28 +204,35 @@ class Gameplay extends React.Component {
             }
             const annotations = wavesurfer.regions.list;
             let count = 0;
+            old_labels[files[curr][0]]["data"] = {}
             for (let region in annotations) {
                 region = annotations[region]
                //console.log(wavesurfer.regions.list)
-                old_labels[files[curr][0]]["data"] = {
-                    start: region.start,
-                    end: region.end
+               
+                old_labels[files[curr][0]]["data"][count] = { 
+                        start: region.start,
+                        end: region.end
                 }
+                count++;
+                old_labels[files[curr][0]]["count"] = count;
             }
             wavesurfer.clearRegions() 
         } else {
             old_labels[files[curr][0]] = {
                 time: time
             }
+            old_labels[files[curr][0]]["data"] = {}
             for (let i = 0; i < rect_data.length; i++) { 
                 let rect = rect_data[i]
-                old_labels[files[curr][0]]["data"] = {
-                    start: rect.x,
-                    end: rect.width + rect.x,
-                    top: rect.y,
-                    bot: rect.height + rect.y
-                } 
+                
+                old_labels[files[curr][0]]["data"][i] = {
+                        start: rect.x,
+                        end: rect.width + rect.x,
+                        top: rect.y,
+                        bot: rect.height + rect.y
+                }    
             }
+            old_labels[files[curr][0]]["count"] = rect_data.length;
            //console.log(old_labels[files[curr][0]])
         }
        //console.log(old_labels)
@@ -243,7 +248,7 @@ class Gameplay extends React.Component {
         if (curr == 0) {
             curr = 1;
         }
-        console.log(curr)
+
         const {wavesurfer, files, curr_labels, label, old_labels} = this.state;
         
         if (curr_labels == null && label == 1) {
@@ -264,7 +269,7 @@ class Gameplay extends React.Component {
         const next_item = curr + 1;
         const start = Date.now();
        //console.log(next_item)
-        this.setState({start, curr: next_item, curr_labels: null, audio: audio})
+        this.setState({start, curr: next_item, curr_labels: null, audio: audio, rect_data: {}})
         
     }
 
@@ -284,7 +289,6 @@ class Gameplay extends React.Component {
         let image_on = !audio
         let file = null
         if (files != null && curr < files.length) {
-            console.log(curr, files.length)
             file = files[curr][0]
            //console.log(files[curr][0])
         }
@@ -300,7 +304,7 @@ class Gameplay extends React.Component {
                     </div> :
                     <div className="App-header">
                         <p>
-                            Gameplay is here
+                        {label != 1 ?  "Click and Drag to Create Regions Over Birds!" : "Click the buttons below if you see or hear a Bird!"}
                         </p>
                     
                     

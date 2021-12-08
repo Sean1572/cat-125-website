@@ -9,8 +9,13 @@ function GameStart() {
     <div className="App">
       <header className="App-header">
         <p>
-          Gameplay Landing is here
           If it is your frist time, we reccomend jumping in right away! 
+
+          You have been choosen to help label some data about birds. You will be given
+          images of birds and thier bird audio. If you are strongly labeling the data,
+          drag over the iamges and audio visualizations to annotate the data. 
+
+          Feel free to enable/disable the spctrogram and waveform visualizations in the settings below
         </p>
         
         <Button 

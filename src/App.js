@@ -8,7 +8,7 @@ import {
 } from './pages/index.js'
 import logo from './logo.svg';
 import { 
-    BrowserRouter as Router,
+  HashRouter as Router,
     Routes ,
     Route
   } from 'react-router-dom';
@@ -30,12 +30,12 @@ function App() {
       <Router>
         <Routes >
           <Route path="/cat-125-website" element={<Landing/>}/>
-          <Route path="/localhost" element={<Landing/>}/>
+          <Route path="/cat-125-website/localhost" element={<Landing/>}/>
           <Route path="/" element={<Landing/>}/>
-          <Route path="/annotate" element={<Gameplay/>}/>
-          <Route path="/annotate_start" element={<GameStart/>}/>
-          <Route path="/annotate_LeaderBoard" element={<Leaderboard/>}/>
-          <Route path="/annotate_scoring" element={<Scoring/>}/>
+          <Route path="/cat-125-website/annotate" element={<Gameplay/>}/>
+          <Route path="/cat-125-website/annotate_start" element={<GameStart/>}/>
+          <Route path="/cat-125-website/annotate_LeaderBoard" element={<Leaderboard/>}/>
+          <Route path="/cat-125-website/annotate_scoring" element={<Scoring/>}/>
         </Routes >
       </Router>
     </div>

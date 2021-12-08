@@ -35,7 +35,7 @@ const renderFrame = (iat, r, e) => {
 
     const image = document.getElementById('source')
     ctx.drawImage(image, 0, 0, height, width)
-    console.log("render")
+    //console.log("render")
     ctx.fillStyle = "red";
 
     ctx.strokeRect(Math.random()*(-10)+1, -2, -5, -6);
@@ -138,7 +138,6 @@ class ImageAnnotationTool extends React.Component {
     reset(e) {
         const {height, width} = this.state
         this.setState({filename: e.detail, rect:[]})
-        console.log(e.detail)
         const image = document.getElementById("source")
         image.src=e.detail
 
@@ -156,7 +155,6 @@ class ImageAnnotationTool extends React.Component {
 
     mouseDown(e) {
         const {disable_strongly} = this.state
-        console.log(disable_strongly)
         if (disable_strongly) {
             return;
         }
@@ -195,7 +193,6 @@ class ImageAnnotationTool extends React.Component {
     render() {
     
     const{filename, height, width, x} = this.state
-    console.log(filename)
    
     if (filename != null) {
         return  (

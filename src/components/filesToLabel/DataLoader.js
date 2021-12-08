@@ -52,7 +52,7 @@ function getFiles(number) {
         len = array.length
         return_arr.push(data[insert])
     }
-    return[['https://pbs.twimg.com/profile_images/417319779943215104/gWMGH_Nx_400x400.jpeg', false], ['https://cdn.download.ams.birds.cornell.edu/api/v1/asset/173621671/1200', false]]
+    return[[soundfile1, true]] //['https://pbs.twimg.com/profile_images/417319779943215104/gWMGH_Nx_400x400.jpeg', false], ['https://cdn.download.ams.birds.cornell.edu/api/v1/asset/173621671/1200', false]]
     //return //return_arr// 
 }
 

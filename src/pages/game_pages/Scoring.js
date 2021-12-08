@@ -12,7 +12,6 @@ function Scoring(props) {
     let threshold = 5;
     let ground_truth = {}
     const label = Number(localStorage.getItem('label'));
-    console.log(label)
     if (label != 1) {
       ground_truth = ground_strongly;
     } else {
@@ -26,48 +25,59 @@ function Scoring(props) {
     for(const item in props.old_labels) {
         count++;
         const data = props.old_labels[item]
-        const ground_truth_item = ground_truth[item]["data"]
-       console.log(data, ground_truth_item)
+        const ground_truth_item_all = ground_truth[item]["data"]
         if (label == 1) {
-            score = data["data"] == ground_truth_item ? score + 1 : score
-            acc = data["data"] == ground_truth_item ? acc + 100 : acc
+            score = data["data"] == ground_truth_item_all ? score + 1 : score
+            acc = data["data"] == ground_truth_item_all ? acc + 100 : acc
         }
         else if (label != 1){
           if (data == null || data["data"] == null) {
-            if (ground_truth[item] == null || ground_truth[item]["data"] == null) {
+            if (ground_truth[item] == null || ground_truth_item_all[item]["data"] == null) {
                 score += 1
                 acc += 100
             }
           } else {
            //console.log(data["data"])
-            const strong_data = data["data"]
-            let acc_incrment = 50
-            if (strong_data.start != null && strong_data.start != null) {
-              acc_incrment = 25
-             //console.log(strong_data.top - ground_truth_item.top)
-             //console.log(ground_truth_item.top)
-             //console.log(ground_truth_item)
-              if (Math.abs(strong_data.top - ground_truth_item.top)  < threshold) {
-                score += 1
+            const strong_data_all = data["data"]
+            const annotation_count = data["count"]
+            count--;
+            count += ground_truth[item]["count"];
+            for(let i = 0; i < annotation_count; i++) {
+              if (i > ground_truth[item]["count"]) break;
+                const strong_data = strong_data_all[i]
+                console.log(strong_data)
+                const ground_truth_item = ground_truth_item_all[i]
+                let acc_incrment = 50
+                if (strong_data.bot != null && strong_data.top != null) {
+                  acc_incrment = 25
+                 console.log(strong_data.top - ground_truth_item.top)
+                 console.log(strong_data.bot - ground_truth_item.bot)
+                 console.log(strong_data.start - ground_truth_item.start)
+                 console.log(strong_data.end - ground_truth_item.end)
+                 //console.log(ground_truth_item.top)
+                 //console.log(ground_truth_item)
+                  if (Math.abs(strong_data.top - ground_truth_item.top)  < threshold) {
+                    score += 1
+                      acc += acc_incrment
+                  }
+                      
+                  if (Math.abs(strong_data.bot - ground_truth_item.bot)  < threshold) {
+                    score += 1
+                    acc += acc_incrment
+                  }
+                }
+                if (Math.abs(strong_data.start - ground_truth_item.start)  < threshold) {
+                  score += 1
+                    acc += acc_incrment
+                }
+                    
+                if (Math.abs(strong_data.end - ground_truth_item.end)  < threshold) {
+                  score += 1
                   acc += acc_incrment
-              }
-                  
-              if (Math.abs(strong_data.bot - ground_truth_item.bot)  < threshold) {
-                score += 1
-                acc += acc_incrment
+                }
               }
             }
-            console.log(Math.abs(strong_data.start - ground_truth_item.start)  < threshold)
-            if (Math.abs(strong_data.start - ground_truth_item.start)  < threshold) {
-              score += 1
-                acc += acc_incrment
-            }
-                
-            if (Math.abs(strong_data.end - ground_truth_item.end)  < threshold) {
-              score += 1
-              acc += acc_incrment
-            }
-          }
+            
           
                 
         }

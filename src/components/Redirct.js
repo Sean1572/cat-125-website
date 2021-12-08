@@ -1,5 +1,5 @@
 function Redirect(path) {
-    window.location.href =  path
+    window.location.hash =  "/cat-125-website" + path
    //console.log("hello")
 }
 
