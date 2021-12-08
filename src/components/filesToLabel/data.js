@@ -34,7 +34,15 @@ const ground_weakly = {
     "/cat-125-website/static/media/376804__amholma__waves-up-close-2.66ae3b32.wav": {
         "data": "no bird",
         "time": 1023
-    }
+    }, 
+        "https://pbs.twimg.com/profile_images/417319779943215104/gWMGH_Nx_400x400.jpeg": {
+            "data": "bird",
+            "time": 1965
+        },
+        "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/173621671/1200": {
+            "data": "bird",
+            "time": 3151
+        }
 }
 
 
@@ -90,6 +98,15 @@ const ground_strongly =
     },
     "/cat-125-website/static/media/376804__amholma__waves-up-close-2.66ae3b32.wav": {
         "time": 623
+    },
+    "https://cdn.download.ams.birds.cornell.edu/api/v1/asset/173621671/1200": {
+        "time": 4717,
+        "data": {
+            "start": 6.55555534362793,
+            "end": 492.55555534362793,
+            "top": 469.0138854980469,
+            "bot": 29.013885498046875
+        }
     }
 }
 

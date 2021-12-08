@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 function onChange(e) {
-    console.log(e.target)
+   //console.log(e.target)
     const value = Number(e.target.value);
-    console.log(value)
+   //console.log(value)
     const id = e.target.id
     localStorage.setItem(id, value);
     

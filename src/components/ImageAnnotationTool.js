@@ -30,14 +30,21 @@ const renderFrame = (iat, r, e) => {
     let {height, width, rect} = iat.state;
 
    
-    ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, height, width); // clear canvas
+    //ctx.fillStyle = "white";
+    //ctx.fillRect(0, 0, height, width); // clear canvas
+
     const image = document.getElementById('source')
-    ctx.drawImage(image, 0, 0, 500, 500)
+    ctx.drawImage(image, 0, 0, height, width)
+    console.log("render")
+    ctx.fillStyle = "red";
+
+    ctx.strokeRect(Math.random()*(-10)+1, -2, -5, -6);
+    ctx.strokeRect(Math.random()*(-10)+1, -2, -5, -6);
+    ctx.strokeRect(Math.random()*(-10)+1, -2, -5, -6);
+    ctx.strokeRect(-10, -2, -5, -6);
+    ctx.strokeRect(-1000, -2, -5, -6);
     for (let i =0; i < rect.length; i++) {
-       
         const next = rect[i]
-        console.log(next)
         ctx.fillStyle = "red";
         ctx.strokeRect(next.x, next.y, next.width, next.height);
     }
@@ -75,6 +82,7 @@ const renderFrame = (iat, r, e) => {
   };
 
   const tick = (object, newRectProps, e) => {
+     
     renderFrame(object, newRectProps, e);
     //requestAnimationFrame(tick(object));
   };
@@ -91,7 +99,8 @@ class ImageAnnotationTool extends React.Component {
             rHeight: -1,
             rWidth: -1,
             currentRect: null,
-            rect: []
+            rect: [],
+            disable_strongly: props.disable_strongly
         }
         this.newRect = {
             x1: -1,
@@ -107,13 +116,13 @@ class ImageAnnotationTool extends React.Component {
    }
 
     componentDidMount() {
-        const hello = this
         const ctx = document.getElementById("img_annotator")
-        console.log("hello", ctx, document.getElementById("img_annotator"))
-        tick(this, this.newRect, null)
+        if (ctx != null)
+            ctx.addEventListener('reset', e => this.reset(e), false);
+       //console.log("hello", ctx, document.getElementById("img_annotator"))
         /*let timer = setInterval(function(){
             // the function can do whatever you need it to
-            console.log(this)
+           //console.log(this)
             
           }, 50);*/
         //ctx.addEventListener("mouseup", () => this.mouseDone(timer));
@@ -124,30 +133,48 @@ class ImageAnnotationTool extends React.Component {
         //set this to state for future use
         
         //window.requestAnimationFrame(this.draw(this))
+    }
 
+    reset(e) {
+        const {height, width} = this.state
+        this.setState({filename: e.detail, rect:[]})
+        console.log(e.detail)
+        const image = document.getElementById("source")
+        image.src=e.detail
+
+       //ctx.remove()
     }
     
     mouseDone(timer){
         clearInterval(timer);         // Cancel the previously initiated timer function
-        console.log("Mouse is up or outside of box!");  // And, do whatever else you need to
+       //console.log("Mouse is up or outside of box!");  // And, do whatever else you need to
         const {x1, y1, height, width} = this.newRect
         const latestRect = new reactangle({x: x1, y: y1, height: height, width: width})
         this.state.rect.push(latestRect)  
+        
     }
 
     mouseDown(e) {
+        const {disable_strongly} = this.state
+        console.log(disable_strongly)
+        if (disable_strongly) {
+            return;
+        }
         const ctx = document.getElementById("img_annotator");
         const {x1, y1, height, width} = this.newRect
         let us = this
         if (e.buttons > 0) {
-            console.log(us.newRect)
             tick(us, us.newRect, e)  
         }
         
     }
 
     mouseUp() {
-        console.log("hello")
+        const {disable_strongly} = this.state
+        if (disable_strongly) {
+            return;
+        }
+       //console.log("hello")
         const {x1, y1, height, width} = this.newRect
         const latestRect = new reactangle({x: x1, y: y1, height: height, width: width})
         this.state.rect.push(latestRect)
@@ -168,29 +195,36 @@ class ImageAnnotationTool extends React.Component {
     render() {
     
     const{filename, height, width, x} = this.state
-    console.log(x)
-      return  (
-          <div>
-              <div style={{display:"none"}}>
-                    <img id="source"
-                        src={filename}
-                        width={width}
-                        height={height}
-                    />
-                </div>
-               <p>
-                    Test IMage
-                </p>
-              <canvas id="img_annotator" 
-                        onMouseMove={e => this.mouseDown(e)} 
-                        onMouseUp={e => this.mouseUp(e)} 
-                        width={width} 
-                        height={height}>
-                </canvas>
-                <Button onclick={e => this.undo(e)} text="undo" />
-          </div>
-       
-      );
+    console.log(filename)
+   
+    if (filename != null) {
+        return  (
+            <div >
+                <div id="img_storage" style={{display:"none"}}>
+                      <img id="source"
+                          src={filename}
+                          width={width}
+                          height={height}
+                          onLoad={() => tick(this, this.newRect, null)}
+                      />
+                  </div>
+                    <canvas id="img_annotator" 
+                          onMouseMove={e => this.mouseDown(e)} 
+                          onMouseUp={e => this.mouseUp(e)} 
+                          width={width} 
+                          height={height}>
+                  </canvas>
+                  <div>
+                  <Button onclick={e => this.undo(e)} text="undo" />
+                  </div>
+            </div>
+         
+        );
+        }
+        else {
+            return null;
+        }
     }
+      
 }
 export default ImageAnnotationTool;
