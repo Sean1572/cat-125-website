@@ -9,11 +9,11 @@
       <div className="App">
         <header className="App-header">
           <p>
-            Landing Page For Website?
+            Ready to start your citizen science career?
           </p>
           <Button 
             onclick={() => gameLoad()}
-            text={"Ready To Start Playing?"}
+            text={"Click here to Start!"}
             />
         
         </header>

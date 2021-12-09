@@ -24,15 +24,15 @@ function GameSettings() {
        localStorage.setItem(id, value);
        
    }
-
+   console.log(label == 2)
   return (
       <div style={{alignContent: "center"}}>
         <p>Game Settings</p>
         <label for="label">Weakly / Strongly</label>
         <div style={{height: "0px" }}/>
         <select onChange={e => onChange(e)} name="label" id="label" >
-          <option value={1} defaultValue={false}>Weakly</option>
-          <option value={2} defaultValue={label == 2}>Strongly</option>
+          <option value={1} selected={label == 1}>Weakly</option>
+          <option value={2} selected={label == 2}>Strongly</option>
          
         </select>
         <div style={{height: "20px" }}/>
@@ -41,8 +41,8 @@ function GameSettings() {
         <label for="label">Spectrogram / Waveform</label>
         <div style={{height: "5px" }}/>
         <select onChange={e => onChange(e)} name="visual" id="visual" >
-          <option value={0}>Waveform</option>
-          <option value={1}>Spectrogram</option>
+          <option value={0} selected={visual == 0}>Waveform</option>
+          <option value={1} selected={visual == 1}>Spectrogram</option>
         </select>
 
         <p>Currently enabled:</p>

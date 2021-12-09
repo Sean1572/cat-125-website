@@ -22,6 +22,7 @@ function Scoring(props) {
     let score = 0
     let acc = 0
     let count = 0
+    console.log(props.old_labels)
     for(const item in props.old_labels) {
         count++;
         const data = props.old_labels[item]
@@ -40,22 +41,26 @@ function Scoring(props) {
            //console.log(data["data"])
             const strong_data_all = data["data"]
             const annotation_count = data["count"]
-            count--;
-            count += ground_truth[item]["count"];
+            if (ground_truth[item]["count"] == null || annotation_count == null) {
+              if (ground_truth[item]["count"] == null && annotation_count == null) {
+                score++
+                acc += 100
+                continue;
+              }
+            }
+            if ( ground_truth[item]["count"] != null) {
+              count--;
+              count += ground_truth[item]["count"];
+            }
             for(let i = 0; i < annotation_count; i++) {
               if (i > ground_truth[item]["count"]) break;
                 const strong_data = strong_data_all[i]
-                console.log(strong_data)
                 const ground_truth_item = ground_truth_item_all[i]
                 let acc_incrment = 50
                 if (strong_data.bot != null && strong_data.top != null) {
+                  console.log( ground_truth[item], strong_data, ground_truth_item)
+                  console.log(strong_data.bot, strong_data.top, ground_truth_item.bot, ground_truth_item.top)
                   acc_incrment = 25
-                 console.log(strong_data.top - ground_truth_item.top)
-                 console.log(strong_data.bot - ground_truth_item.bot)
-                 console.log(strong_data.start - ground_truth_item.start)
-                 console.log(strong_data.end - ground_truth_item.end)
-                 //console.log(ground_truth_item.top)
-                 //console.log(ground_truth_item)
                   if (Math.abs(strong_data.top - ground_truth_item.top)  < threshold) {
                     score += 1
                       acc += acc_incrment
@@ -90,7 +95,7 @@ function Scoring(props) {
    
    //console.log(Math.round(score), acc/count)
 
-
+    console.log(count)
   return (
     <div className="App">
       <header className="App-header">
@@ -98,7 +103,7 @@ function Scoring(props) {
         YOU SCORED  
         </p>
         <p>
-          {score} points with {acc/count}% accuracy
+          {score} points with {Math.round(acc/count)}% accuracy
           
         </p>
         Do you want to play again? 

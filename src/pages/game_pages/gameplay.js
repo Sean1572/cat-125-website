@@ -153,7 +153,7 @@ class Gameplay extends React.Component {
             });
         }
 
-        let files = getFiles(1);
+        let files = getFiles(3);
 
 
         if (files[0][1]) {
@@ -263,6 +263,7 @@ class Gameplay extends React.Component {
             wavesurfer.load(files[curr][0]);
             audio = true;
         } else {
+            audio = false;
             this.resetImageLabeling(files[curr][0])
         }
         
@@ -283,15 +284,32 @@ class Gameplay extends React.Component {
     }
 
     render() { 
-        const {wavesurfer, label, old_labels, scoreboard, audio, curr, files} = this.state
+        const {wavesurfer, label, old_labels, scoreboard, curr, files} = this.state
+        let {audio} = this.state
+        
+            
         {console.log(old_labels)}
+        
         let wavesurfer_on = audio? 'block' :'none'
-        let image_on = !audio
+        console.log("audio now is", wavesurfer_on)
+        
         let file = null
         if (files != null && curr < files.length) {
+            
             file = files[curr][0]
            //console.log(files[curr][0])
+        } else if (files != null && curr - 1 < files.length) {
+            file = files[curr-1][0]
+            wavesurfer_on = files[curr-1][1]? 'block' :'none'
         }
+
+        if (files != null && curr < files.length)  {
+            console.log("audio now is", wavesurfer_on, files[curr])
+        } else {
+            console.log(files)
+        }
+
+        let image_on = !audio
 
        //console.log("image on?", audio)
 
