@@ -36,7 +36,6 @@ function GameSettings() {
          
         </select>
         <div style={{height: "20px" }}/>
-        <text>(Audio Only) </text>
         <div style={{height: "0px" }}/>
         <label for="label">Spectrogram / Waveform</label>
         <div style={{height: "5px" }}/>
