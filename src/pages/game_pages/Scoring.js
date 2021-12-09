@@ -112,7 +112,7 @@ function Scoring(props) {
             onclick={() => Redirect("/annotate_start")}
             text={"Click Here to return to the game start page"}
             />
-        *hint* try out other settings, they might help you improve!
+        *hint* try out other settings!
       </header>
     </div>
   );
