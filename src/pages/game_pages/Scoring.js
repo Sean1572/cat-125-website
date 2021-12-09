@@ -45,8 +45,9 @@ function Scoring(props) {
               if (ground_truth[item]["count"] == null && annotation_count == null) {
                 score++
                 acc += 100
-                continue;
+               
               }
+              continue;
             }
             if ( ground_truth[item]["count"] != null) {
               count--;
