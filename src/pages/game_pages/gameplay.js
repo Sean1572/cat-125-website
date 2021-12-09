@@ -372,7 +372,7 @@ class Gameplay extends React.Component {
                                 </div>
                             </div> : null
                         }
-
+                        <div style={{"height": "10px", "zIndex": 100}} />
                         <Button 
                         onclick={() => this.next()}
                         text={"Next"}
