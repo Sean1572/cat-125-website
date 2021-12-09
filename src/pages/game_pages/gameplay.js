@@ -321,16 +321,17 @@ class Gameplay extends React.Component {
                     <Scoring old_labels={old_labels}/>
                     </div> :
                     <div className="App-header">
-                        <p>
+                        
+                        <p style={{"marginBottom": "20px","marginTop": "-30px"}}>
+                        
                         {label != 1 ?  "Click and Drag to Create Regions Over Birds!" : "Click the buttons below if you see or hear a Bird!"}
                         </p>
-                    
                     
                         <script src="https://unpkg.com/wavesurfer.js"></script>
                         <script src="https://unpkg.com/wavesurfer.js/dist/plugin/wavesurfer.regions.min.js"></script>
                         
                         <div id="waveform" className="waveform" style={{"display": wavesurfer_on}}></div>
-                        <div id="spectrogram" className="spectrogram_div" style={{"display": wavesurfer_on}}></div>
+                        <div id="spectrogram" className="spectrogram_div" style={{"display": wavesurfer_on, "height": '288px'}}></div>
                         {image_on ? 
                         <ImageAnnotationTool filename={file}
                             getDataCallback={data => this.getStronglyImageData(data)}
