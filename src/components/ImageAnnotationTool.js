@@ -209,7 +209,8 @@ class ImageAnnotationTool extends React.Component {
                           onMouseMove={e => this.mouseDown(e)} 
                           onMouseUp={e => this.mouseUp(e)} 
                           width={width} 
-                          height={height}>
+                          height={height}
+                          style={{zIndex: 10}}>
                   </canvas>
                   <div>
                   <Button onclick={e => this.undo(e)} text="undo" />

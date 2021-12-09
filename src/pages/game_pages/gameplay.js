@@ -332,7 +332,7 @@ class Gameplay extends React.Component {
                         
                         <div id="waveform" className="waveform" style={{"display": wavesurfer_on}}></div>
                         <div id="spectrogram" className="spectrogram_div" style={{"display": wavesurfer_on, "height": '288px'}}></div>
-                        
+                        {/*<text style={{visibility: false, position: "absolute"}}> rendering, please wait </text>*/}
                         {image_on ? 
                         <ImageAnnotationTool filename={file}
                             getDataCallback={data => this.getStronglyImageData(data)}
