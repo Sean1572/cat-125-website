@@ -9,7 +9,7 @@ function GameStart() {
     <div className="App">
       <header className="App-header">
         <p>
-         Be sure to check out the tutorial above before playing!
+         Be sure to check out the tutorial below before playing!
         </p>
         <p>
          Remember: It is reccomened to use Chrome or Safari!
