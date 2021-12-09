@@ -8,5 +8,5 @@ This is the repo I am using to hold and host a demo I created for CAT 125.
 Run dev app
 
 ### `npm run deploy`
-Devlopy production to github pages
+Deploy production to github pages
 
