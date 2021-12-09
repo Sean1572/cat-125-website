@@ -250,7 +250,7 @@ class Gameplay extends React.Component {
         }
 
         const {wavesurfer, files, curr_labels, label, old_labels} = this.state;
-        
+        wavesurfer.pause()
         if (curr_labels == null && label == 1) {
             return;
         }
