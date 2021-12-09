@@ -332,28 +332,34 @@ class Gameplay extends React.Component {
                         
                         <div id="waveform" className="waveform" style={{"display": wavesurfer_on}}></div>
                         <div id="spectrogram" className="spectrogram_div" style={{"display": wavesurfer_on, "height": '288px'}}></div>
+                        
                         {image_on ? 
                         <ImageAnnotationTool filename={file}
                             getDataCallback={data => this.getStronglyImageData(data)}
                             disable_strongly={label == 1}
-                        /> :  <Button 
-                        onclick={() => wavesurfer.play()}
-                        text={"Play"}
-                        /> }
+                        /> :  null}
 
                         
                        
-                        <div style={{"height": "10px"}} />
+                        <div style={{"height": "10px", "zIndex": 100}} />
+                        {!image_on ? 
+                        <Button 
+                            onclick={() => wavesurfer.play()}
+                            text={"Play"}
+                        /> : null}
                         {label == 1 ? 
-                            <div> 
-                                <Button 
-                                    onclick={() => this.annotationLabeled("bird")}
-                                    text={"Bird"}
-                                />
-                                <Button 
-                                    onclick={() =>  this.annotationLabeled("no bird")}
-                                    text={"No Bird"}
-                                />
+                            <div>
+                               
+                                <div> 
+                                    <Button 
+                                        onclick={() => this.annotationLabeled("bird")}
+                                        text={"Bird"}
+                                    />
+                                    <Button 
+                                        onclick={() =>  this.annotationLabeled("no bird")}
+                                        text={"No Bird"}
+                                    />
+                                </div>
                             </div> : null
                         }
 

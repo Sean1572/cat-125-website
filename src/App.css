@@ -5,6 +5,7 @@
 .App-Button {
   width: 100px;
   height: max-content;
+  z-index: 10000000;
 }
 
 .waveform {
