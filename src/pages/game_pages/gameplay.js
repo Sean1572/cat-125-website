@@ -322,7 +322,7 @@ class Gameplay extends React.Component {
                     </div> :
                     <div className="App-header">
                         
-                        <p style={{"marginBottom": "20px","marginTop": "-30px"}}>
+                        <p style={{"marginBottom": "20px","marginTop": "-5px"}}>
                         
                         {label != 1 ?  "Click and Drag to Create Regions Over Birds!" : "Click the buttons below if you see or hear a Bird!"}
                         </p>
@@ -341,12 +341,22 @@ class Gameplay extends React.Component {
 
                         
                        
+                        
+                        {!image_on ?
+                            <div style={{"height": "10px", "zIndex": 100}}> 
+                                <Button 
+                                    onclick={() => wavesurfer.play()}
+                                    text={"Play"}
+                                    
+                                /> 
+                                 <Button 
+                                    onclick={() => wavesurfer.pause()}
+                                    text={"Pause"}
+                                    
+                                /> 
+                        </div>: null}
+                        <div style={{"height": "10px", "zIndex": 100}}/> 
                         <div style={{"height": "10px", "zIndex": 100}} />
-                        {!image_on ? 
-                        <Button 
-                            onclick={() => wavesurfer.play()}
-                            text={"Play"}
-                        /> : null}
                         {label == 1 ? 
                             <div>
                                
