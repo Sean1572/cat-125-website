@@ -48,6 +48,7 @@ import soundfile9 from './376804__amholma__waves-up-close-2.wav'
 function getFiles(number) {
     let len = data.length
     let array = []
+    let already_used = []
     let return_arr = []
     for (let i =0; i < len; i++) {
         array.push(i)
@@ -55,6 +56,13 @@ function getFiles(number) {
     console.log(array, return_arr)
     for (let i =0; i < number; i++) {
         let insert = Math.floor(Math.random() * len)
+        console.log("before", insert)
+        while(already_used.indexOf(insert) != -1) {
+            insert = Math.floor(Math.random() * len)
+            continue;
+        }
+        console.log("after", insert)
+        already_used.push(insert)
         //array = array.slice(array.indexOf(insert), array.indexOf(insert)+1)
         len = array.length
         return_arr.push(data[insert])
